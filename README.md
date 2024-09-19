@@ -26,5 +26,7 @@ npm i
 npx tsc -init
 npx ts-node-dev src/server.ts
 npx prisma init
+npx prisma generate
+npm run dev
 ```
 
