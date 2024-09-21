@@ -10,6 +10,7 @@ const userController = new UserController();
 const pacienteController = new PacienteController();
 const medicoController = new MedicoController();
 const especialidadeController = new EspecialidadeController();
+const prontuarioController = new PacienteController();
 
 
 const path = "/api";
@@ -38,5 +39,11 @@ routes.post(`${path}/especialidade`, especialidadeController.create);
 routes.get(`${path}/especialidade/:id`, especialidadeController.getById);
 routes.delete(`${path}/especialidade/:id`, especialidadeController.verifyIfExists, especialidadeController.delete);
 routes.put(`${path}/especialidade/:id`, especialidadeController.update);
+
+routes.get(`${path}/prontuario`, prontuarioController.getAll);
+routes.post(`${path}/prontuario`, prontuarioController.create);
+routes.get(`${path}/prontuario/:id`, prontuarioController.getById);
+routes.delete(`${path}/prontuario/:id`, prontuarioController.verifyIfExists, prontuarioController.delete);
+routes.put(`${path}/prontuario/:id`, prontuarioController.update);
 
 export { routes };
