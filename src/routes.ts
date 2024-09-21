@@ -2,12 +2,14 @@ import { Router } from "express";
 import { UserController } from "./controllers/UserController";
 import { PacienteController } from "./controllers/PacienteController";
 import { MedicoController } from "./controllers/MedicoController";
+import { EspecialidadeController } from "./controllers/EspecialidadeController";
 
 
 const routes = Router();
 const userController = new UserController();
 const pacienteController = new PacienteController();
 const medicoController = new MedicoController();
+const especialidadeController = new EspecialidadeController();
 
 
 const path = "/api";
@@ -31,5 +33,10 @@ routes.get(`${path}/medico/:id`, medicoController.getById);
 routes.delete(`${path}/medico/:id`, medicoController.verifyIfExists, medicoController.delete);
 routes.put(`${path}/medico/:id`, medicoController.update);
 
+routes.get(`${path}/especialidade`, especialidadeController.getAll);
+routes.post(`${path}/especialidade`, especialidadeController.create);
+routes.get(`${path}/especialidade/:id`, especialidadeController.getById);
+routes.delete(`${path}/especialidade/:id`, especialidadeController.verifyIfExists, especialidadeController.delete);
+routes.put(`${path}/especialidade/:id`, especialidadeController.update);
 
 export { routes };
