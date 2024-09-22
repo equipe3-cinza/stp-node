@@ -1,20 +1,18 @@
+import { EnderecoDTO } from "../dtos/endereco.dto";
 import { EnderecoService } from "../services/EnderecoService";
-import { Request, Response, NextFunction} from "express";
+import { Request, Response, NextFunction } from "express";
 
 class EnderecoController {
+  private enderecoService: EnderecoService;
 
-    private enderecoService: EnderecoService;
+  constructor() {
+    this.enderecoService = new EnderecoService();
+  }
 
-    constructor() {
-        this.enderecoService = new EnderecoService();
-    }
-
-    
   create = async (req: Request, res: Response) => {
-    const {rua, numero, complemento, bairro,
-        cidade, estado, pais, cep} = req.body;
+    const enderecoDTO: EnderecoDTO = req.body;
     try {
-      const endereco = await this.enderecoService.create(rua, numero, complemento, bairro, cidade, estado, pais, cep);
+      const endereco = await this.enderecoService.create(enderecoDTO);
       return res.status(201).json(endereco);
     } catch (error) {
       this.handleError(res, error, "Error creating endereco");
@@ -33,8 +31,8 @@ class EnderecoController {
   getById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "Endereco not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "Endereco not found." });
       }
       const endereco = await this.enderecoService.getById(id);
       if (!endereco) {
@@ -58,10 +56,9 @@ class EnderecoController {
 
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const {rua, numero, complemento, bairro,
-        cidade, estado, pais, cep} = req.body;
+    const enderecoDTO: EnderecoDTO = req.body;
     try {
-      const endereco = await this.enderecoService.update(id, rua, numero, complemento, bairro, cidade, estado, pais, cep);
+      const endereco = await this.enderecoService.update(id, enderecoDTO);
       return res.status(200).json(endereco);
     } catch (error) {
       this.handleError(res, error, "Error updating endereco");
@@ -71,8 +68,8 @@ class EnderecoController {
   verifyIfExists = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "Endereco not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "Endereco not found." });
       }
       const endereco = await this.enderecoService.getById(id);
       if (!endereco) {
@@ -83,7 +80,6 @@ class EnderecoController {
       this.handleError(res, error, "Error verifying if endereco exists");
     }
   };
-
 
   private validateId(id: string) {
     return id.length === 24;
@@ -97,7 +93,6 @@ class EnderecoController {
       return res.status(500).json({ error: "An unexpected error occurred." });
     }
   }
-
 }
 
-export { EnderecoController }
+export { EnderecoController };

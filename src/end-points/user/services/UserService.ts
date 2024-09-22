@@ -1,8 +1,10 @@
-import { prisma } from "../prisma";
+import { prisma } from "../../../prisma";
 import { hash } from "bcryptjs";
+import { UserDTO } from "../dtos/user.dto";
 
 class UserService {
-  async create(login: string, password: string) {
+  async create(userDTO: UserDTO) {
+    const { login, password } = userDTO;
     try {
       const userExists = await prisma.user.findUnique({
         where: { login },
@@ -75,7 +77,8 @@ class UserService {
     }
   }
 
-  async update(id: string, login: string, password: string) {
+  async update(id: string, userDTO: UserDTO) {
+    const { login, password } = userDTO;
     try {
       const hashedPassword = await hash(password, 10);
       const user = await prisma.user.update({

@@ -1,20 +1,18 @@
+import { Request, Response, NextFunction } from "express";
 import { PacienteService } from "../services/PacienteService";
-import { Request, Response, NextFunction} from "express";
+import { PacienteDTO } from "../dtos/paciente.dto";
 
 class PacienteController {
+  private pacienteService: PacienteService;
 
-    private pacienteService: PacienteService;
+  constructor() {
+    this.pacienteService = new PacienteService();
+  }
 
-    constructor() {
-        this.pacienteService = new PacienteService();
-    }
-
-    
   create = async (req: Request, res: Response) => {
-    const { cpf, nome, telefone, email, endereco, tipoSanguineo,
-         prontuario, solicitacoes, transferencias} = req.body;
+    const pacienteDTO: PacienteDTO = req.body;
     try {
-      const paciente = await this.pacienteService.create(cpf, nome, telefone, email, endereco, tipoSanguineo, prontuario, solicitacoes, transferencias);
+      const paciente = await this.pacienteService.create(pacienteDTO);
       return res.status(201).json(paciente);
     } catch (error) {
       this.handleError(res, error, "Error creating paciente");
@@ -33,8 +31,8 @@ class PacienteController {
   getById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "Paciente not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "Paciente not found." });
       }
       const paciente = await this.pacienteService.getById(id);
       if (!paciente) {
@@ -58,10 +56,9 @@ class PacienteController {
 
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { cpf, nome, telefone, email, endereco, tipoSanguineo,
-        prontuario, solicitacoes, transferencias} = req.body;
+    const pacienteDTO: PacienteDTO = req.body;
     try {
-      const paciente = await this.pacienteService.update(id, cpf, nome, telefone, email, endereco, tipoSanguineo, prontuario, solicitacoes, transferencias);
+      const paciente = await this.pacienteService.update(id, pacienteDTO);
       return res.status(200).json(paciente);
     } catch (error) {
       this.handleError(res, error, "Error updating paciente");
@@ -71,8 +68,8 @@ class PacienteController {
   verifyIfExists = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "Paciente not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "Paciente not found." });
       }
       const paciente = await this.pacienteService.getById(id);
       if (!paciente) {
@@ -83,7 +80,6 @@ class PacienteController {
       this.handleError(res, error, "Error verifying if paciente exists");
     }
   };
-
 
   private validateId(id: string) {
     return id.length === 24;
@@ -97,7 +93,6 @@ class PacienteController {
       return res.status(500).json({ error: "An unexpected error occurred." });
     }
   }
-
 }
 
-export { PacienteController }
+export { PacienteController };
