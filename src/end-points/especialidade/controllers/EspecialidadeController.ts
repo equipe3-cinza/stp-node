@@ -1,19 +1,20 @@
+import { EspecialidadeDTO } from "../dtos/especialidade.dto";
 import { EspecialidadeService } from "../services/EspecialidadeService";
-import { Request, Response, NextFunction} from "express";
+import { Request, Response, NextFunction } from "express";
 
 class EspecialidadeController {
+  private especialidadeService: EspecialidadeService;
 
-    private especialidadeService: EspecialidadeService;
+  constructor() {
+    this.especialidadeService = new EspecialidadeService();
+  }
 
-    constructor() {
-        this.especialidadeService = new EspecialidadeService();
-    }
-
-    
   create = async (req: Request, res: Response) => {
-    const {nome, descricao, unidadesHospitalares, solicitacoes} = req.body;
+    const especialidadeDTO: EspecialidadeDTO = req.body;
     try {
-      const especialidade = await this.especialidadeService.create(nome, descricao, unidadesHospitalares, solicitacoes);
+      const especialidade = await this.especialidadeService.create(
+        especialidadeDTO
+      );
       return res.status(201).json(especialidade);
     } catch (error) {
       this.handleError(res, error, "Error creating Especialidade");
@@ -32,8 +33,8 @@ class EspecialidadeController {
   getById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "Especialidades not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "Especialidades not found." });
       }
       const especialidade = await this.especialidadeService.getById(id);
       if (!especialidade) {
@@ -57,9 +58,9 @@ class EspecialidadeController {
 
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const {nome, descricao, unidadesHospitalares, solicitacoes} = req.body;
+    const especialidadeDTO: EspecialidadeDTO = req.body;
     try {
-      const especialidade = await this.especialidadeService.create(nome, descricao, unidadesHospitalares, solicitacoes);
+      const especialidade = await this.especialidadeService.update(id, especialidadeDTO);
       return res.status(200).json(especialidade);
     } catch (error) {
       this.handleError(res, error, "Error updating Especialidade");
@@ -69,8 +70,8 @@ class EspecialidadeController {
   verifyIfExists = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "Especialidade not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "Especialidade not found." });
       }
       const especialidade = await this.especialidadeService.getById(id);
       if (!especialidade) {
@@ -81,7 +82,6 @@ class EspecialidadeController {
       this.handleError(res, error, "Error verifying if Especialidade exists");
     }
   };
-
 
   private validateId(id: string) {
     return id.length === 24;
@@ -95,7 +95,6 @@ class EspecialidadeController {
       return res.status(500).json({ error: "An unexpected error occurred." });
     }
   }
-
 }
 
-export { EspecialidadeController }
+export { EspecialidadeController };

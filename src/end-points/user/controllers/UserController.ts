@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "../services/UserService";
-import { error } from "console";
+import { UserDTO } from "../dtos/user.dto";
 
 class UserController {
   private userService: UserService;
@@ -10,9 +10,9 @@ class UserController {
   }
 
   create = async (req: Request, res: Response) => {
-    const { login, password } = req.body;
+    const userDTO: UserDTO = req.body;
     try {
-      const user = await this.userService.create(login, password);
+      const user = await this.userService.create(userDTO);
       return res.status(201).json(user);
     } catch (error) {
       this.handleError(res, error, "Error creating user");
@@ -31,8 +31,8 @@ class UserController {
   getById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "User not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "User not found." });
       }
       const user = await this.userService.getById(id);
       if (!user) {
@@ -56,9 +56,9 @@ class UserController {
 
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { login, password } = req.body;
+    const userDTO: UserDTO = req.body;
     try {
-      const user = await this.userService.update(id, login, password);
+      const user = await this.userService.update(id, userDTO);
       return res.status(200).json(user);
     } catch (error) {
       this.handleError(res, error, "Error updating user");
@@ -68,8 +68,8 @@ class UserController {
   verifyIfExists = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "User not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "User not found." });
       }
       const user = await this.userService.getById(id);
       if (!user) {
@@ -80,7 +80,6 @@ class UserController {
       this.handleError(res, error, "Error verifying if user exists");
     }
   };
-
 
   private validateId(id: string) {
     return id.length === 24;

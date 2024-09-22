@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { UserController } from "./controllers/UserController";
-import { PacienteController } from "./controllers/PacienteController";
-import { MedicoController } from "./controllers/MedicoController";
-import { EspecialidadeController } from "./controllers/EspecialidadeController";
+import { EspecialidadeController } from "./end-points/especialidade/controllers/EspecialidadeController";
+import { MedicoController } from "./end-points/medico/controllers/MedicoController";
+import { PacienteController } from "./end-points/paciente/controllers/PacienteController";
+import { UserController } from "./end-points/user/controllers/UserController";
 
 
 const routes = Router();

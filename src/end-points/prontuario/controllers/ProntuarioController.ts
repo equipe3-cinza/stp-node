@@ -1,19 +1,18 @@
+import { Request, Response, NextFunction } from "express";
 import { ProntuarioService } from "../services/ProntuarioService";
-import { Request, Response, NextFunction} from "express";
+import { ProntuarioDTO } from "../dtos/prontuario.dto";
 
 class ProntuarioController {
+  private prontuarioService: ProntuarioService;
 
-    private prontuarioService: ProntuarioService;
+  constructor() {
+    this.prontuarioService = new ProntuarioService();
+  }
 
-    constructor() {
-        this.prontuarioService = new ProntuarioService();
-    }
-
-    
   create = async (req: Request, res: Response) => {
-    const {classificacao, medicamentosAtuais, paciente} = req.body;
+    const prontuarioDTO: ProntuarioDTO = req.body;
     try {
-      const prontuario = await this.prontuarioService.create(classificacao, medicamentosAtuais, paciente);
+      const prontuario = await this.prontuarioService.create(prontuarioDTO);
       return res.status(201).json(prontuario);
     } catch (error) {
       this.handleError(res, error, "Error creating Prontuario");
@@ -32,8 +31,8 @@ class ProntuarioController {
   getById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "Prontuario not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "Prontuario not found." });
       }
       const prontuario = await this.prontuarioService.getById(id);
       if (!prontuario) {
@@ -57,9 +56,9 @@ class ProntuarioController {
 
   update = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const {classificacao, medicamentosAtuais, paciente} = req.body;
+    const prontuarioDTO: ProntuarioDTO = req.body;
     try {
-      const prontuario = await this.prontuarioService.create(classificacao, medicamentosAtuais, paciente);
+      const prontuario = await this.prontuarioService.update(id, prontuarioDTO);
       return res.status(200).json(prontuario);
     } catch (error) {
       this.handleError(res, error, "Error updating Prontuario");
@@ -69,8 +68,8 @@ class ProntuarioController {
   verifyIfExists = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
-      if(!this.validateId(id)) {
-        return res.status(404).json({error: "Prontuario not found."});
+      if (!this.validateId(id)) {
+        return res.status(404).json({ error: "Prontuario not found." });
       }
       const prontuario = await this.prontuarioService.getById(id);
       if (!prontuario) {
@@ -81,7 +80,6 @@ class ProntuarioController {
       this.handleError(res, error, "Error verifying if Prontuario exists");
     }
   };
-
 
   private validateId(id: string) {
     return id.length === 24;
@@ -95,7 +93,6 @@ class ProntuarioController {
       return res.status(500).json({ error: "An unexpected error occurred." });
     }
   }
-
 }
 
-export { ProntuarioController }
+export { ProntuarioController };
