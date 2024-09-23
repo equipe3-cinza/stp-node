@@ -1,5 +1,5 @@
 import { prisma } from "../../../prisma";
-import { DocumentoTransferenciaDTO } from "../DocumentoTransferenciaDTO/DocumentoTransferenciaDTO.dto";
+import { DocumentoTransferenciaDTO } from "../dtos/DocumentoTransferenciaDTO.dto";
 
 class DocumentoTransferenciaService {
   async create(documentoTransferenciaDTO: DocumentoTransferenciaDTO) {
