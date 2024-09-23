@@ -46,10 +46,10 @@ model Solicitacao {
   paciente                  String
   motivo                    String
   documento                 String
+  transferencia             String
   especialidadesRequisitada String[]
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
-  transferencia             String
 }
 
 model UnidadeHospitalar {
