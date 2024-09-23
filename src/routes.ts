@@ -17,9 +17,9 @@ const path = "/api";
 
 routes.get(`${path}/user`, userController.getAll);
 routes.post(`${path}/user`, userController.create);
-routes.get(`${path}/:id`, userController.getById);
-routes.delete(`${path}/:id`, userController.verifyIfExists, userController.delete);
-routes.put(`${path}/:id`, userController.update);
+routes.get(`${path}/user/:id`, userController.getById);
+routes.delete(`${path}/user/:id`, userController.verifyIfExists, userController.delete);
+routes.put(`${path}/user/:id`, userController.update);
 //routes.post("/auth", authController.authenticate);
 
 routes.get(`${path}/paciente`, pacienteController.getAll);
