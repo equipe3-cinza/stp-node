@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { handleError, validateId } from "../../../utils/utils";
-import { DocumentoTransferenciaDTO } from "../DocumentoTransferenciaDTO/DocumentoTransferenciaDTO.dto";
+import { DocumentoTransferenciaDTO } from "../dtos/DocumentoTransferenciaDTO.dto";
 import { DocumentoTransferenciaService } from "../services/DocumentoTransferenciaService";
 
 class DocumentoTransferenciaController {
