@@ -10,7 +10,7 @@ class DocumentoTransferenciaController {
         this.documentoTransferenciaService = new DocumentoTransferenciaService();
     }
 
-    async create(req: Request, res: Response) { 
+    create = async (req: Request, res: Response) => {
         try {
             const documentoTransferenciaDTO: DocumentoTransferenciaDTO = req.body;
             const result = await this.documentoTransferenciaService.create(documentoTransferenciaDTO);
@@ -20,7 +20,7 @@ class DocumentoTransferenciaController {
         }
     }
 
-    async update(req: Request, res: Response) {
+    update = async (req: Request, res: Response) => {
         try {
             const id: string = req.params.id;
             const documentoTransferenciaDTO: DocumentoTransferenciaDTO = req.body;
@@ -31,7 +31,7 @@ class DocumentoTransferenciaController {
         }
     }
 
-    async delete(req: Request, res: Response) {
+    delete = async (req: Request, res: Response) => {
         try {
             const id: string = req.params.id;
             validateId(id, res);
@@ -42,7 +42,7 @@ class DocumentoTransferenciaController {
         }
     }
 
-    async findById(req: Request, res: Response) {
+    findById = async (req: Request, res: Response) => {
         try {
             const id: string = req.params.id;
             validateId(id, res);
@@ -53,7 +53,7 @@ class DocumentoTransferenciaController {
         }
     }
 
-    async findAll(req: Request, res: Response) {
+    findAll = async (req: Request, res: Response) => {
         try {
             const result = await this.documentoTransferenciaService.findAll();
             return res.status(200).json(result);

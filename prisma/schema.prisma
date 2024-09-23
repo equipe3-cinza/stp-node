@@ -63,7 +63,7 @@ model UnidadeHospitalar {
   disponibilidadeLeitos  String
   especialidades         String[]
   medicos                String[]
-  temUTI                 Boolean[]
+  temUTI                 Boolean
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
 }
