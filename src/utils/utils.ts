@@ -7,3 +7,9 @@ export function handleError(res: Response, error: unknown, msg: string) {
     return res.status(500).json({ error: "Internal server error." });
   }
 }
+
+export function validateId(id: string, res: Response) {
+    if (!id) {
+      return res.status(400).json({ error: "Id is required" });
+    }
+  }

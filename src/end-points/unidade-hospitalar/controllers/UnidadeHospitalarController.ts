@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UnidadeHospitalarService } from "../services/UnidadeHospitalarService";
 import { UnidadeHospitalarDTO } from "../dtos/unidade-hospitalar.dto";
-import { handleError } from "../../../utils/utils";
+import { handleError, validateId } from "../../../utils/utils";
 
 export class UnidadeHospitalarController {
   private unidadeHospitalarService: UnidadeHospitalarService;
@@ -39,6 +39,7 @@ export class UnidadeHospitalarController {
   delete = async (req: Request, res: Response) => {
     try {
       const id: string = req.params.id;
+      validateId(id, res)
       await this.unidadeHospitalarService.delete(id);
        return res.status(204).send();
     } catch (error) {
@@ -49,6 +50,7 @@ export class UnidadeHospitalarController {
   findById = async (req: Request, res: Response) => {
     try {
       const id: string = req.params.id;
+      validateId(id, res)
       const result = await this.unidadeHospitalarService.findById(id);
        return res.status(200).json(result);
     } catch (error) {
@@ -56,12 +58,12 @@ export class UnidadeHospitalarController {
     }
   };
 
-  findAll = async (req: Request, res: Response) => {
-    try {
-      const result = await this.unidadeHospitalarService.findAll();
-       return res.status(200).json(result);
-    } catch (error) {
-      return handleError(res, error, "Error getting unidade hospitalar");
-    }
-  };
+    findAll = async (req: Request, res: Response) => {
+      try {
+        const result = await this.unidadeHospitalarService.findAll();
+        return res.status(200).json(result);
+      } catch (error) {
+        return handleError(res, error, "Error getting unidade hospitalar");
+      }
+    };
 }

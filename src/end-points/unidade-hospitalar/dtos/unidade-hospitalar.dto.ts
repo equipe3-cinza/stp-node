@@ -8,4 +8,5 @@ export interface UnidadeHospitalarDTO {
   disponibilidadeLeitos: string;
   especialidades: string[];
   medicos: string[];
+  temUTI: boolean;
 }
