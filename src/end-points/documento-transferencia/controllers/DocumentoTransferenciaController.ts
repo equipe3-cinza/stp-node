@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response , NextFunction} from "express";
 import { handleError, validateId } from "../../../utils/utils";
 import { DocumentoTransferenciaDTO } from "../dtos/DocumentoTransferenciaDTO.dto";
 import { DocumentoTransferenciaService } from "../services/DocumentoTransferenciaService";
@@ -42,7 +42,7 @@ class DocumentoTransferenciaController {
         }
     }
 
-    findById = async (req: Request, res: Response) => {
+    getById = async (req: Request, res: Response) => {
         try {
             const id: string = req.params.id;
             validateId(id, res);
@@ -53,7 +53,7 @@ class DocumentoTransferenciaController {
         }
     }
 
-    findAll = async (req: Request, res: Response) => {
+    getAll = async (req: Request, res: Response) => {
         try {
             const result = await this.documentoTransferenciaService.findAll();
             return res.status(200).json(result);
@@ -61,6 +61,20 @@ class DocumentoTransferenciaController {
             return handleError(res, error, "Error getting all documentos transferencia");
         }
     }
+
+    verifyIfExists = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          const { id } = req.params;
+          validateId(id, res);
+          const endereco = await this.documentoTransferenciaService.findById(id);
+          if (!endereco) {
+            return res.status(404).json({ error: "endereco not found" });
+          }
+          return next();
+        } catch (error) {
+          return handleError(res, error, "Error verifying if endereco exists");
+        }
+      };
 }
 
 export { DocumentoTransferenciaController };

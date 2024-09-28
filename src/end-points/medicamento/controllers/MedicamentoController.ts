@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { handleError, validateId } from "../../../utils/utils";
 import { MedicamentoDTO } from "../dtos/MedicamentoDTO.dto";
 import { MedicamentoService } from "../services/MedicamentoService";
@@ -42,7 +42,7 @@ export class MedicamentoController {
         }
     };
     
-    findById = async (req: Request, res: Response) => {
+    getById = async (req: Request, res: Response) => {
         try {
         const id: string = req.params.id;
         validateId(id, res);
@@ -53,7 +53,7 @@ export class MedicamentoController {
         }
     };
     
-    findAll = async (req: Request, res: Response) => {
+    getAll = async (req: Request, res: Response) => {
         try {
         const result = await this.medicamentoService.findAll();
         return res.status(200).json(result);
@@ -61,4 +61,19 @@ export class MedicamentoController {
         return handleError(res, error, "Error getting all medicamentos");
         }
     };
-    }
+
+    verifyIfExists = async (req: Request, res: Response, next: NextFunction) => {
+        try {
+          const { id } = req.params;
+          validateId(id, res);
+          const endereco = await this.medicamentoService.findById(id);
+          if (!endereco) {
+            return res.status(404).json({ error: "endereco not found" });
+          }
+          return next();
+        } catch (error) {
+          return handleError(res, error, "Error verifying if endereco exists");
+        }
+    };
+
+}
