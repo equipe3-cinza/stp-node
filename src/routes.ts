@@ -9,6 +9,7 @@ import { DocumentoTransferenciaController } from "./end-points/documento-transfe
 import { EnderecoController } from "./end-points/endereco/controllers/EnderecoController";
 import { MedicamentoController } from "./end-points/medicamento/controllers/MedicamentoController";
 import { ProntuarioController } from "./end-points/prontuario/controllers/ProntuarioController";
+import { checkRole, jwtMiddleware } from "../middlewares/auth";
 
 const routes = Router();
 const userController = new UserController();
@@ -24,23 +25,23 @@ const medicamentoController = new MedicamentoController();
 
 const path = "/api";
 
-const defineRoutes = (controller: any, routeName: string) => {
-    routes.get(`${path}/${routeName}`, controller.getAll);
-    routes.post(`${path}/${routeName}`, controller.create);
-    routes.get(`${path}/${routeName}/:id`, controller.getById);
-    routes.delete(`${path}/${routeName}/:id`, controller.verifyIfExists, controller.delete);
-    routes.put(`${path}/${routeName}/:id`, controller.update);
+const defineRoutes = (controller: any, routeName: string, roles: string[]) => {
+    routes.get(`${path}/${routeName}`, jwtMiddleware, checkRole(roles), controller.getAll);
+    routes.post(`${path}/${routeName}`, jwtMiddleware, checkRole(roles), controller.create);
+    routes.get(`${path}/${routeName}/:id`, jwtMiddleware, checkRole(roles), controller.getById);
+    routes.delete(`${path}/${routeName}/:id`, jwtMiddleware, checkRole(roles), controller.verifyIfExists, controller.delete);
+    routes.put(`${path}/${routeName}/:id`, jwtMiddleware, checkRole(roles), controller.update);
 };
 
-defineRoutes(userController, "user");
-defineRoutes(pacienteController, "paciente");
-defineRoutes(medicoController, "medico");
-defineRoutes(especialidadeController, "especialidade");
-defineRoutes(prontuarioController, "prontuario");
-defineRoutes(unidadeHospitalarController, "unidade");
-defineRoutes(documentoTransferenciaController, "documento");
-defineRoutes(enderecoController, "endereco");
-defineRoutes(medicamentoController, "medicamento");
-defineRoutes(transferenciaController, "transferencia");
+defineRoutes(documentoTransferenciaController, "documento", ["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]);
+defineRoutes(enderecoController, "endereco", ["ROLE_USER"]);
+defineRoutes(especialidadeController, "especialidade", ["ROLE_ADMIN"]);
+defineRoutes(medicamentoController, "medicamento", ["ROLE_ADMIN"]);
+defineRoutes(userController, "user", ["ROLE_USER"]);
+defineRoutes(medicoController, "medico", ["ROLE_ADMIN"]);
+defineRoutes(pacienteController, "paciente", ["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]);
+defineRoutes(prontuarioController, "prontuario", ["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]);
+defineRoutes(unidadeHospitalarController, "unidade", ["ROLE_ADMIN"]);
+defineRoutes(transferenciaController, "transferencia", ["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]);
 
 export { routes };
