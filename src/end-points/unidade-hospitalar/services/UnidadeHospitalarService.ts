@@ -39,7 +39,7 @@ class UnidadeHospitalarService {
         }
     }
 
-    async findById(id: string) {
+    async findById(id: string): Promise<UnidadeHospitalarDTO | null> {
         try {
             const unidadeHospitalar = await prisma.unidadeHospitalar.findUnique({
                 where: { id },

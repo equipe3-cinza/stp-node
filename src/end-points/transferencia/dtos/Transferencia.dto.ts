@@ -5,8 +5,8 @@ export interface TransferenciaDTO {
     origem: string;
     medicoOrigem: string;
     medicoRegulador: string;
-    horarioSaida: Date;
-    horarioPrevistoChegada: Date;
+    horarioSaida: Date | string;
+    horarioPrevistoChegada: Date | string;
     distancia: number;
     documento: string;
     paciente: string;

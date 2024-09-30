@@ -5,10 +5,11 @@ import { handleError, validateId } from "../../../utils/utils";
 
 export class TransferenciaController {
   private transferenciaService: TransferenciaService;
-
+  
   constructor() {
     this.transferenciaService = new TransferenciaService();
   }
+  
 
   create = async (req: Request, res: Response) => {
     try {
@@ -72,13 +73,13 @@ export class TransferenciaController {
     try {
       const { id } = req.params;
       validateId(id, res);
-      const endereco = await this.transferenciaService.findById(id);
-      if (!endereco) {
-        return res.status(404).json({ error: "endereco not found" });
+      const transferencia = await this.transferenciaService.findById(id);
+      if (!transferencia) {
+        return res.status(404).json({ error: "transferencia not found" });
       }
       return next();
     } catch (error) {
-      return handleError(res, error, "Error verifying if endereco exists");
+      return handleError(res, error, "Error verifying if transferencia exists");
     }
   };
 }
