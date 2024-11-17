@@ -1,4 +1,5 @@
 export interface UnidadeHospitalarDTO {
+  nome: string;
   telefone: string;
   email: string;
   endereco: string;

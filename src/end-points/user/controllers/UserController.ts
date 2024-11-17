@@ -65,6 +65,17 @@ class UserController {
     }
   };
 
+  login = async (req: Request, res: Response) => {
+    const { login, password } = req.body;
+    try {
+      const result = await this.userService.login(login, password);
+      return res.status(200).json(result);
+    } catch (error) {
+      this.handleError(res, error, "Erro ao fazer login");
+    }
+  }
+  
+  
   verifyIfExists = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;

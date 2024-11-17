@@ -22,26 +22,82 @@ const unidadeHospitalarController = new UnidadeHospitalarController();
 const documentoTransferenciaController = new DocumentoTransferenciaController();
 const enderecoController = new EnderecoController();
 const medicamentoController = new MedicamentoController();
+const authController = new UserController();
 
 const path = "/api";
 
-const defineRoutes = (controller: any, routeName: string, roles: string[]) => {
-    routes.get(`${path}/${routeName}`, jwtMiddleware, checkRole(roles), controller.getAll);
-    routes.post(`${path}/${routeName}`, jwtMiddleware, checkRole(roles), controller.create);
-    routes.get(`${path}/${routeName}/:id`, jwtMiddleware, checkRole(roles), controller.getById);
-    routes.delete(`${path}/${routeName}/:id`, jwtMiddleware, checkRole(roles), controller.verifyIfExists, controller.delete);
-    routes.put(`${path}/${routeName}/:id`, jwtMiddleware, checkRole(roles), controller.update);
-};
+// Rotas de autenticação
+routes.post(`${path}/auth`, authController.login);
+routes.post(`${path}/user`, userController.create);
 
-defineRoutes(documentoTransferenciaController, "documento", ["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]);
-defineRoutes(enderecoController, "endereco", ["ROLE_USER"]);
-defineRoutes(especialidadeController, "especialidade", ["ROLE_ADMIN"]);
-defineRoutes(medicamentoController, "medicamento", ["ROLE_ADMIN"]);
-defineRoutes(userController, "user", ["ROLE_USER"]);
-defineRoutes(medicoController, "medico", ["ROLE_ADMIN"]);
-defineRoutes(pacienteController, "paciente", ["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]);
-defineRoutes(prontuarioController, "prontuario", ["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]);
-defineRoutes(unidadeHospitalarController, "unidade", ["ROLE_ADMIN"]);
-defineRoutes(transferenciaController, "transferencia", ["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]);
+// Rotas de endereço
+routes.get(`${path}/endereco`, jwtMiddleware, checkRole(["ROLE_USER"]), enderecoController.getAll);
+routes.post(`${path}/endereco`, jwtMiddleware, checkRole(["ROLE_USER"]), enderecoController.create);
+routes.get(`${path}/endereco/:id`, jwtMiddleware, checkRole(["ROLE_USER"]), enderecoController.getById);
+routes.delete(`${path}/endereco/:id`, jwtMiddleware, checkRole(["ROLE_USER"]), enderecoController.verifyIfExists, enderecoController.delete);
+routes.put(`${path}/endereco/:id`, jwtMiddleware, checkRole(["ROLE_USER"]), enderecoController.update);
+
+// Rotas de especialidade
+routes.get(`${path}/especialidade`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), especialidadeController.getAll);
+routes.post(`${path}/especialidade`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), especialidadeController.create);
+routes.get(`${path}/especialidade/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), especialidadeController.getById);
+routes.delete(`${path}/especialidade/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), especialidadeController.verifyIfExists, especialidadeController.delete);
+routes.put(`${path}/especialidade/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), especialidadeController.update);
+
+// Rotas de medicamento
+routes.get(`${path}/medicamento`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicamentoController.getAll);
+routes.post(`${path}/medicamento`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicamentoController.create);
+routes.get(`${path}/medicamento/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicamentoController.getById);
+routes.delete(`${path}/medicamento/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicamentoController.verifyIfExists, medicamentoController.delete);
+routes.put(`${path}/medicamento/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicamentoController.update);
+
+// Rotas de usuário
+routes.get(`${path}/user`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), userController.getAll);
+routes.post(`${path}/user`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), userController.create);
+routes.get(`${path}/user/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), userController.getById);
+routes.delete(`${path}/user/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), userController.verifyIfExists, userController.delete);
+routes.put(`${path}/user/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), userController.update);
+
+// Rotas de médico
+routes.get(`${path}/medico`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.getAll);
+routes.post(`${path}/medico`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.create);
+routes.get(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.getById);
+routes.delete(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.verifyIfExists, medicoController.delete);
+routes.put(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.update);
+
+// Rotas de paciente
+routes.get(`${path}/paciente`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), pacienteController.getAll);
+routes.post(`${path}/paciente`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), pacienteController.create);
+routes.get(`${path}/paciente/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), pacienteController.getById);
+routes.delete(`${path}/paciente/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), pacienteController.verifyIfExists, pacienteController.delete);
+routes.put(`${path}/paciente/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), pacienteController.update);
+
+// Rotas de prontuário
+routes.get(`${path}/prontuario`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), prontuarioController.getAll);
+routes.post(`${path}/prontuario`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), prontuarioController.create);
+routes.get(`${path}/prontuario/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), prontuarioController.getById);
+routes.delete(`${path}/prontuario/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), prontuarioController.verifyIfExists, prontuarioController.delete);
+routes.put(`${path}/prontuario/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), prontuarioController.update);
+
+// Rotas de unidade hospitalar
+routes.get(`${path}/unidade`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), unidadeHospitalarController.getAll);
+routes.post(`${path}/unidade`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), unidadeHospitalarController.create);
+routes.get(`${path}/unidade/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), unidadeHospitalarController.getById);
+routes.delete(`${path}/unidade/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), unidadeHospitalarController.verifyIfExists, unidadeHospitalarController.delete);
+routes.put(`${path}/unidade/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), unidadeHospitalarController.update);
+
+// Rotas de transferência
+routes.get(`${path}/transferencia`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), transferenciaController.getAll);
+routes.post(`${path}/transferencia`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), transferenciaController.create);
+routes.get(`${path}/transferencia/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), transferenciaController.getById);
+routes.delete(`${path}/transferencia/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), transferenciaController.verifyIfExists, transferenciaController.delete);
+routes.put(`${path}/transferencia/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), transferenciaController.update);
+
+// Rotas de documento de transferência
+routes.get(`${path}/documento`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), documentoTransferenciaController.getAll);
+routes.post(`${path}/documento`, jwtMiddleware, checkRole(["ROLE_MEDICO_REGULADOR"]), documentoTransferenciaController.create);
+routes.get(`${path}/documento/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), documentoTransferenciaController.getById);
+routes.delete(`${path}/documento/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO_REGULADOR"]), documentoTransferenciaController.verifyIfExists, documentoTransferenciaController.delete);
+routes.put(`${path}/documento/:id`, jwtMiddleware, checkRole(["ROLE_MEDICO_REGULADOR"]), documentoTransferenciaController.update);
 
 export { routes };
