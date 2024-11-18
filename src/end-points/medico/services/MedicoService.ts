@@ -36,6 +36,23 @@ class MedicoService {
     }
   }
 
+  async getByName(name: string) {
+    try {
+      const medicos = await prisma.medico.findMany({
+        where: {
+          name: {
+            contains: name,
+            mode: "insensitive",
+          },
+        },
+      });
+      return medicos;
+    } catch (error) {
+      console.error(`Error finding Medico by name ${error}`);
+      throw error;
+    }
+  }
+
   async update(id: string, medicoDTO: MedicoDTO) {
     try {
       const medico = await prisma.medico.update({

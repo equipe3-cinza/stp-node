@@ -9,6 +9,7 @@
 ### Prof. Esp. Paulo Roberto
 
 ## **Equipe Cinza**
+
 - Alan Brilhante Coutinho
 - Arthur Vieira Guimarães
 - Caio Alexandre Oliveira Alves
@@ -16,17 +17,14 @@
 - Lucas Araujo Ribeiro
 - Wilglison Rilniky Oliveira dos Santos
 
-
-
 ---
 
 ### Ambiente DEV
+
+criar arquivo .env com as informações do banco de dados
+
 ```=
 npm i
-npx tsc -init
-npx ts-node-dev src/server.ts
-npx prisma init
 npx prisma generate
 npm run dev
 ```
-

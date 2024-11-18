@@ -59,11 +59,12 @@ routes.delete(`${path}/user/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), user
 routes.put(`${path}/user/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), userController.update);
 
 // Rotas de médico
-routes.get(`${path}/medico`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.getAll);
-routes.post(`${path}/medico`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.create);
-routes.get(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.getById);
-routes.delete(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.verifyIfExists, medicoController.delete);
-routes.put(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN"]), medicoController.update);
+routes.get(`${path}/medico`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), medicoController.getAll);
+routes.get(`${path}/medico/search/:name`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), medicoController.getByName);
+routes.get(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), medicoController.getById);
+routes.post(`${path}/medico`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), medicoController.create);
+routes.delete(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), medicoController.verifyIfExists, medicoController.delete);
+routes.put(`${path}/medico/:id`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), medicoController.update);
 
 // Rotas de paciente
 routes.get(`${path}/paciente`, jwtMiddleware, checkRole(["ROLE_ADMIN", "ROLE_MEDICO", "ROLE_MEDICO_REGULADOR"]), pacienteController.getAll);
