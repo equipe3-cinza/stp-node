@@ -42,6 +42,14 @@ class PacienteService {
 
   async update(id: string, pacienteDTO: PacienteDTO) {
     try {
+      const exists = await prisma.paciente.findUnique({
+        where: { id },
+      });
+
+      if (!exists) {
+        throw new Error("Patient not found");
+      }
+
       const paciente = await prisma.paciente.update({
         where: { id },
         data: pacienteDTO,

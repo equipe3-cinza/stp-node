@@ -1,0 +1,41 @@
+### Login
+POST http://localhost:3000/api/auth
+Content-Type: application/json
+
+{
+    "login": "admin",
+    "password": "123"
+}
+
+### List Medicamentos
+GET http://localhost:3000/api/medicamento
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMyMTI1NDEzLCJleHAiOjE3MzIyMTE4MTN9.cGUEMdyuYUukhQxjxs-DIgMCbEYGIpnTXSFM4VSrxeE
+
+### get by id Medicamento
+GET http://localhost:3000/api/medicamento/66f19981c8ac7ea4b8e25d01
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMyMTI1NDEzLCJleHAiOjE3MzIyMTE4MTN9.cGUEMdyuYUukhQxjxs-DIgMCbEYGIpnTXSFM4VSrxeE
+
+### new Medicamento
+POST http://localhost:3000/api/medicamento
+Content-Type: application/json
+
+{
+    "nome": "Dipirona Monoidratada",
+    "descricao": "Analgésico e antitérmico",
+    "prontuarios": [],
+    "medicamentosPrescritos": []
+    
+}
+
+### edit Medicamento
+PUT http://localhost:3000/api/medicamento/66f9e0616661ae613eb2950e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMyMTMzNDI0LCJleHAiOjE3MzIyMTk4MjR9.1Utd7EiLKR4tt2OcW8-XWXtKA22M1yNWhVNGRXfIHFI
+Content-Type: application/json
+
+{
+    "nome": "Aspirina",
+    "descricao": "Analgésico e Anti-inflamatório)",
+    "prontuarios": [],
+    "medicamentosPrescritos": []
+    
+}

@@ -1,0 +1,49 @@
+
+### Login
+POST http://localhost:3000/api/auth
+Content-Type: application/json
+
+{
+    "login": "admin",
+    "password": "123"
+}
+
+
+### List Endereços
+GET http://localhost:3000/api/endereco
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMyMTE4NDk1LCJleHAiOjE3MzIyMDQ4OTV9.MFogRe0ru14XaNsNe_8lc1piVIXTn09HE41zr54sbcQ
+
+### get by id Endereços
+GET http://localhost:3000/api/endereco/66f1847bfa5728eba0990e68
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMyMTE4NDk1LCJleHAiOjE3MzIyMDQ4OTV9.MFogRe0ru14XaNsNe_8lc1piVIXTn09HE41zr54sbcQ
+
+### new Endereço
+POST http://localhost:3000/api/endereco
+Content-Type: application/json
+
+{
+  "rua": "Rua 21 de Janeiro",
+  "numero": "2345",
+  "complemento": "QD 4, LT 24",
+  "bairro": "Centro",
+  "cidade": "Goiânia",
+  "estado": "GO",
+  "pais": "Brasil",
+  "cep": "73765432"
+}
+
+### new Endereço
+PUT http://localhost:3000/api/endereco/66f1849bfa5728eba0990e69
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMyMTE4NDk1LCJleHAiOjE3MzIyMDQ4OTV9.MFogRe0ru14XaNsNe_8lc1piVIXTn09HE41zr54sbcQ
+Content-Type: application/json
+
+{
+  "rua": "Rua Calos Manoel de Barros",
+  "numero": "435",
+  "complemento": "QD 34, LT 4",
+  "bairro": "Centro",
+  "cidade": "Goiânia",
+  "estado": "GO",
+  "pais": "Brasil",
+  "cep": "73765432"
+}

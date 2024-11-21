@@ -12,7 +12,7 @@ Content-Type: application/json
 
 ### List Unidade hospitalar
 GET http://localhost:3000/api/unidade
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMxODY2NDY4LCJleHAiOjE3MzE5NTI4Njh9.l4SPXhn9icSWX1LnNifJ0SnpQth8keCbevRUeuW2O2I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMyMTQzOTQzLCJleHAiOjE3MzIyMzAzNDN9.rsgo8n6KVUsQtyTFbIfJOSj3MovQe7nOKwcL8ksKsMk
 
 
 ### new Unidade hospitalar

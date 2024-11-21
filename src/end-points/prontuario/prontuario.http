@@ -1,0 +1,41 @@
+#API tests with extension "REST Client"
+
+### Login
+POST http://localhost:3000/api/auth
+Content-Type: application/json
+
+{
+    "login": "medico",
+    "password": "123"
+}
+
+### List Prontuarios
+GET http://localhost:3000/api/prontuario
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmZTc5MTAxMDVkZmEzZjIwM2M5ZiIsInJvbGVzIjpbIlJPTEVfTUVESUNPIl0sImlhdCI6MTczMjEyNTMxMiwiZXhwIjoxNzMyMjExNzEyfQ.syrOAXiOvep36-zjDXLZ6JhbVnV6OAMy9uBL4JKcgNU
+
+### Get by id Prontuario
+GET http://localhost:3000/api/prontuario/66f19bceef68f40e1759cbab
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmZTc5MTAxMDVkZmEzZjIwM2M5ZiIsInJvbGVzIjpbIlJPTEVfTUVESUNPIl0sImlhdCI6MTczMjEyMDY3MCwiZXhwIjoxNzMyMjA3MDcwfQ.hPWLRTVYTqeltkUETmnSm0YHwBYsw9J54OOIYfhuolY
+
+### new Prontuario
+POST http://localhost:3000/api/prontuario
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmZTc5MTAxMDVkZmEzZjIwM2M5ZiIsInJvbGVzIjpbIlJPTEVfTUVESUNPIl0sImlhdCI6MTczMjEyMDY3MCwiZXhwIjoxNzMyMjA3MDcwfQ.hPWLRTVYTqeltkUETmnSm0YHwBYsw9J54OOIYfhuolY
+Content-Type: application/json
+
+{
+  "classificacao": "primaria",
+  "medicamentosAtuais": ["66f19981c8ac7ea4b8e25d01"],
+  "paciente": ""
+}
+
+### edit Prontuario
+PUT http://localhost:3000/api/prontuario/673e10b7b04aeb5cb6514d23
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmZTc5MTAxMDVkZmEzZjIwM2M5ZiIsInJvbGVzIjpbIlJPTEVfTUVESUNPIl0sImlhdCI6MTczMjEyNTMxMiwiZXhwIjoxNzMyMjExNzEyfQ.syrOAXiOvep36-zjDXLZ6JhbVnV6OAMy9uBL4JKcgNU
+Content-Type: application/json
+
+{
+  "classificacao": "secundaria",
+  "medicamentosAtuais": ["66f19981c8ac7ea4b8e25d01","66f9e0616661ae613eb2950e"],
+  "paciente": ""
+}
+

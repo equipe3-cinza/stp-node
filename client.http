@@ -5,14 +5,14 @@ POST http://localhost:3000/api/auth
 Content-Type: application/json
 
 {
-    "login": "adm7",
+    "login": "admin",
     "password": "123"
 }
 
 
 ### List User### List User
 GET http://localhost:3000/api/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmYzljMTAxMDVkZmEzZjIwM2M5ZSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdLCJpYXQiOjE3MzE4NTM0ODMsImV4cCI6MTczMTkzOTg4M30.TY-34tTv7ZcA8XYkJ_mrYs62QJ-dLdi91SD1kojTGCI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjA3Zjk4ZTllMGU5YmQ1ZTUzY2ZlYiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzMyMTExODMxLCJleHAiOjE3MzIxOTgyMzF9.AbSd6Z1LCmwT84kHeqXRLb513j7NWyaYLXCMnkJRo-M
 
 
 
