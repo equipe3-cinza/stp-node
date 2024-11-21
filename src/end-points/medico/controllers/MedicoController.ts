@@ -44,6 +44,19 @@ class MedicoController {
     }
   };
 
+  getByName = async (req: Request, res: Response) => {
+    try {
+      const { name } = req.params;
+      const medico = await this.medicoService.getByName(name);
+      if (!medico) {
+        return res.status(404).json({ error: "Medico not found" });
+      }
+      return res.status(200).json(medico);
+    } catch (error) {
+      this.handleError(res, error, "Error getting Medico by name");
+    }
+  };
+
   delete = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {

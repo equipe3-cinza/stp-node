@@ -1,0 +1,55 @@
+#API tests with extension "REST Client"
+
+### Login
+POST http://localhost:3000/api/auth
+Content-Type: application/json
+
+{
+    "login": "admin",
+    "password": "123"
+}
+
+### List Pacentes
+GET http://localhost:3000/api/paciente
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmZTc5MTAxMDVkZmEzZjIwM2M5ZiIsInJvbGVzIjpbIlJPTEVfTUVESUNPIl0sImlhdCI6MTczMjEyMDY3MCwiZXhwIjoxNzMyMjA3MDcwfQ.hPWLRTVYTqeltkUETmnSm0YHwBYsw9J54OOIYfhuolY
+
+
+### get by id Pacentes
+GET http://localhost:3000/api/paciente/66f19e96ef68f40e1759cbac
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmZTc5MTAxMDVkZmEzZjIwM2M5ZiIsInJvbGVzIjpbIlJPTEVfTUVESUNPIl0sImlhdCI6MTczMjEyMDY3MCwiZXhwIjoxNzMyMjA3MDcwfQ.hPWLRTVYTqeltkUETmnSm0YHwBYsw9J54OOIYfhuolY
+
+### new Paciente
+POST http://localhost:3000/api/paciente
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmZTc5MTAxMDVkZmEzZjIwM2M5ZiIsInJvbGVzIjpbIlJPTEVfTUVESUNPIl0sImlhdCI6MTczMjEyMDY3MCwiZXhwIjoxNzMyMjA3MDcwfQ.hPWLRTVYTqeltkUETmnSm0YHwBYsw9J54OOIYfhuolY
+Content-Type: application/json
+
+{
+  "cpf": "532452345",
+  "nome": "wilglison santos",
+  "telefone": "6263456345",
+  "email": "wilglison@gmal.com",
+  "endereco": "66f1847bfa5728eba0990e68",
+  "tipoSanguineo": "b+",
+  "prontuario": "66f19bceef68f40e1759cbab",
+  "solicitacoes": [],
+  "transferencias": []
+}
+
+
+### editar Paciente
+PUT http://localhost:3000/api/paciente/66f19e96ef68f40e1759cbac
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzlmZTc5MTAxMDVkZmEzZjIwM2M5ZiIsInJvbGVzIjpbIlJPTEVfTUVESUNPIl0sImlhdCI6MTczMjEyMDY3MCwiZXhwIjoxNzMyMjA3MDcwfQ.hPWLRTVYTqeltkUETmnSm0YHwBYsw9J54OOIYfhuolY
+Content-Type: application/json
+
+{
+  "prontuario": "673e10b7b04aeb5cb6514d23",
+  "cpf": "985.661.260-84",
+  "nome": "Wilglison Rilniky Oliveira dos Santos",
+  "telefone": "(62) 98233-9685",
+  "email": "wilglison.niky@gmail.com",
+  "endereco": "66f1849bfa5728eba0990e69",
+  "tipoSanguineo": "B+",
+  "solicitacoes": [],
+  "transferencias": []
+}
+
