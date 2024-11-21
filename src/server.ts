@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500", "http://localhost", "http://127.0.0.1", "http://stp.wil.app.br"],
+    origin: process.env.CORS_ORIGIN || "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
