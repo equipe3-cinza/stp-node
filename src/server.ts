@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500", "http://localhost", "http://127.0.0.1", "http://stp.wil.app.br"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -16,4 +16,6 @@ app.use(
 
 app.use(routes);
 
-app.listen(3000, () => console.log("Server is running."));
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
